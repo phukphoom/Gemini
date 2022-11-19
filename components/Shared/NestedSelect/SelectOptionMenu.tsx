@@ -30,7 +30,7 @@ const SelectOptionMenu: FunctionComponent<SelectOptionMenuProps> = ({
       {option.displayComponent ? (
         option.displayComponent
       ) : (
-        <p>{option.value}</p>
+        <p>{option.value.toString()}</p>
       )}
       <IconChevronRight
         className={`w-3 h-3 ${

@@ -4,29 +4,10 @@ import { NestedSelect } from "../Shared";
 
 import { EventCustomizerProps } from "./types";
 
-const MOCK_OPTION_LIST = {
-  title: "Protocol",
-  options: [
-    {
-      value: "Uniswap",
-      subOptionList: {
-        title: "Event",
-        options: [{ value: "Event A" }, { value: "Event B" }],
-      },
-    },
-    {
-      value: "PancakeSwap",
-      subOptionList: {
-        title: "Event",
-        options: [{ value: "Event C" }],
-      },
-    },
-  ],
-};
+import SupportEvent from "../../constants/SupportedEvent.json";
 
 const EventCustomizer: FunctionComponent<EventCustomizerProps> = ({
   index,
-  currentEventDetail,
   handleChangeEventDetail,
   handleRemoveEventDetail,
 }) => {
@@ -53,26 +34,11 @@ const EventCustomizer: FunctionComponent<EventCustomizerProps> = ({
         <div className="flex flex-col w-full space-y-6">
           <NestedSelect
             label={`Event ${index + 1}`}
-            optionList={MOCK_OPTION_LIST}
+            optionList={SupportEvent}
             onChange={(value) => {
-              handleChangeEventDetail({
-                ...currentEventDetail,
-                name: value,
-              });
+              handleChangeEventDetail(value as Object);
             }}
           />
-          {currentEventDetail.name && (
-            <NestedSelect
-              label={`Asset ${index + 1}`}
-              optionList={MOCK_OPTION_LIST}
-              onChange={(value) => {
-                handleChangeEventDetail({
-                  ...currentEventDetail,
-                  asset: value,
-                });
-              }}
-            />
-          )}
         </div>
       </div>
       <button

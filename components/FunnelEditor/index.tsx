@@ -12,12 +12,15 @@ const FunnelEditor: FunctionComponent = () => {
 
   const handleAddEventDetail = (position: number) => {
     if (position === -1) {
-      setEventDetails([...eventDetails, { name: undefined, asset: undefined }]);
+      setEventDetails([
+        ...eventDetails,
+        { protocol: undefined, eventName: undefined },
+      ]);
     } else {
       const newEventDetails = [...eventDetails];
       newEventDetails.splice(position, 0, {
-        name: undefined,
-        asset: undefined,
+        protocol: undefined,
+        eventName: undefined,
       });
       setEventDetails(newEventDetails);
     }
@@ -70,7 +73,6 @@ const FunnelEditor: FunctionComponent = () => {
             />
             <EventCustomizer
               index={index}
-              currentEventDetail={eventDetails[index]}
               handleChangeEventDetail={(eventDetail) => {
                 handleChangeEventDetail(index, eventDetail);
               }}

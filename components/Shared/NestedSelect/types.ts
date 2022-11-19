@@ -1,5 +1,5 @@
 export interface Option {
-  value: string;
+  value: string | Object;
   displayComponent?: React.ReactNode;
   subOptionList?: OptionList;
 }
@@ -11,25 +11,25 @@ export interface OptionList {
 
 export interface NestedSelectProps {
   label?: string;
-  initialValue?: string;
+  initialValue?: string | Object;
   optionList: OptionList;
-  onChange: (value: string) => void;
+  onChange: (value: string | Object) => void;
 }
 
 export interface SelectOptionContainerProps {
   title?: string;
   options: Option[];
-  onSelect: (selectedOptionValue: string) => void;
+  onSelect: (selectedOptionValue: string | Object) => void;
 }
 
 export interface SelectOptionMenuProps {
   option: Option;
   isExpanded: boolean;
-  onClick: (firstOptionValue: string) => void;
+  onClick: (firstOptionValue: string | Object) => void;
   onMouseEnter: (subOptionList: OptionList) => void;
 }
 
 export interface SelectOptionProps {
   option: Option;
-  onClick: (selectedOptionValue: string) => void;
+  onClick: (selectedOptionValue: string | Object) => void;
 }

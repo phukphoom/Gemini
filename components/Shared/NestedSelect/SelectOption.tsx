@@ -17,7 +17,7 @@ const SelectOption: FunctionComponent<SelectOptionProps> = ({
       {option.displayComponent ? (
         option.displayComponent
       ) : (
-        <p>{option.value}</p>
+        <p>{option.value.toString()}</p>
       )}
     </MenuItem>
   );

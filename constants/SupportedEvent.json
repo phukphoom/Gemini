@@ -1,0 +1,42 @@
+{
+  "title": "Protocol",
+  "options": [
+    {
+      "value": "Uniswap",
+      "subOptionList": {
+        "title": "Event",
+        "options": [
+          {
+            "displayComponent": "Swap1",
+            "value": {
+              "protocol": "Uniswap",
+              "eventName": "Swap1"
+            }
+          },
+          {
+            "displayComponent": "Swap2",
+            "value": {
+              "protocol": "Uniswap",
+              "eventName": "Swap2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "value": "PancakeSwap",
+      "subOptionList": {
+        "title": "Event",
+        "options": [
+          {
+            "displayComponent": "Swap3",
+            "value": {
+              "protocol": "PancakeSwap",
+              "eventName": "Swap3"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

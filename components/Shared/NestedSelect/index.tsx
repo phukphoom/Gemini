@@ -8,13 +8,15 @@ import { NestedSelectProps } from "./types";
 const NestedSelect: FunctionComponent<NestedSelectProps> = ({
   label,
   initialValue = "",
-  optionList,
+  optionList = { options: [] },
   onChange,
 }) => {
-  const [currentValue, setCurrentValue] = useState<string>(initialValue);
+  const [currentValue, setCurrentValue] = useState<string | Object>(
+    initialValue
+  );
   const [isOpenOptions, setIsOpenOptions] = useState<boolean>(false);
 
-  const handleSelectOption = (optionValue: string) => {
+  const handleSelectOption = (optionValue: string | Object) => {
     setCurrentValue(optionValue);
     onChange(optionValue);
   };
@@ -25,7 +27,13 @@ const NestedSelect: FunctionComponent<NestedSelectProps> = ({
       <Select
         open={isOpenOptions}
         value={currentValue}
-        renderValue={(value) => <p>{value}</p>}
+        renderValue={(value) => {
+          return value instanceof Object ? (
+            <p>{Object.values(value).join(" - ")}</p>
+          ) : (
+            <p>{value}</p>
+          );
+        }}
         autoWidth
         onClick={() => {
           setIsOpenOptions(!isOpenOptions);

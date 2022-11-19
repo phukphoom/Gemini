@@ -1,4 +1,4 @@
 export interface EventDetail {
-  name?: string;
-  asset?: string;
+  protocol?: string;
+  eventName?: string;
 }
