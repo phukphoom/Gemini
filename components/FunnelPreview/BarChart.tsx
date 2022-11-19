@@ -25,12 +25,17 @@ const BarChart: FunctionComponent<BarChartProps> = ({
       },
       yAxis: {
         min: 0,
-        max: eventScoreData[0],
+        max: () =>
+          Math.ceil((100 * Math.max(...eventScoreData)) / eventScoreData[0]),
         type: "value",
         axisLabel: {
           formatter: (value: any) => {
-            return Math.floor((100 * value) / eventScoreData[0]) + "%";
+            return value + "%";
           },
+        },
+        splitNumber: 10,
+        minorTick: {
+          show: true,
         },
       },
       series: [
