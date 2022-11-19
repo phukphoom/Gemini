@@ -1,6 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 
-export interface BarChartprops {
+export interface BarChartProps {
+  eventNameData: string[];
+  eventScoreData: number[];
+}
+
+export interface BarChartBannerProps {
   eventNameData: string[];
   eventScoreData: number[];
 }
