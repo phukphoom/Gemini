@@ -2,16 +2,18 @@ import { Box, Button, Menu, MenuItem } from "@mui/material";
 import { FunctionComponent, useEffect, useState } from "react";
 
 import BarChart from "./BarChart";
+import { FunnelPreviewProps } from "./type";
 
 import { IconClock } from "../Shared";
 
 import mocks from "../../constants/mock.json";
 
-const FunnelPreview: FunctionComponent = () => {
+const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
+  setEndTimeStamp,
+  setStartTimeStamp,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [dayFilters, setDayFilters] = useState<number>(1);
-  const [endDate, setEndDate] = useState<string>();
-  const [startDate, setStartDate] = useState<string>();
 
   const open = Boolean(anchorEl);
 
@@ -26,10 +28,10 @@ const FunnelPreview: FunctionComponent = () => {
 
   useEffect(() => {
     const date = new Date();
-    console.log("end", date.valueOf());
+    setEndTimeStamp(date.valueOf());
     date.setDate(date.getDate() - dayFilters);
-    console.log("start", date.valueOf());
-  }, [dayFilters]);
+    setStartTimeStamp(date.valueOf());
+  }, [dayFilters, setEndTimeStamp, setStartTimeStamp]);
 
   const handleClose = () => {
     setAnchorEl(null);
