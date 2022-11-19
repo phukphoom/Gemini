@@ -6,6 +6,12 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    transitionDuration: {
+      DEFAULT: "200ms",
+    },
+    trasitionTimingFunction: {
+      DEFAULT: "ease-in-out",
+    },
     extend: {
       fontFamily: {
         futura: ["Futura Std", "sans-serif"],
