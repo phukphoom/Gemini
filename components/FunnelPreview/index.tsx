@@ -12,6 +12,7 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
   stackData,
   setEndTimeStamp,
   setStartTimeStamp,
+  showLoading,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [dayFilters, setDayFilters] = useState<number>(1);
@@ -29,9 +30,9 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
 
   useEffect(() => {
     const date = new Date();
-    setEndTimeStamp(date.valueOf() * 1000);
+    setEndTimeStamp(date.valueOf());
     date.setDate(date.getDate() - dayFilters);
-    setStartTimeStamp(date.valueOf() * 1000);
+    setStartTimeStamp(date.valueOf());
   }, [dayFilters, setEndTimeStamp, setStartTimeStamp]);
 
   const handleClose = () => {
@@ -94,8 +95,13 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
           <BarChartBanner
             eventNameData={stackLabel}
             eventScoreData={stackData}
+            showLoading={showLoading}
           />
-          <BarChart eventNameData={stackLabel} eventScoreData={stackData} />
+          <BarChart
+            eventNameData={stackLabel}
+            eventScoreData={stackData}
+            showLoading={showLoading}
+          />
         </div>
       )}
     </Box>

@@ -9,6 +9,8 @@ import { EventDetail } from "../components/types";
 import axios from "axios";
 
 const Home: NextPage = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [stackLabel, setStackLabel] = useState<string[]>([]);
   const [stackData, setStackData] = useState<number[]>([]);
 
@@ -19,17 +21,14 @@ const Home: NextPage = () => {
     setStackLabel(
       eventDetails.map((eventDetail) => Object.values(eventDetail).join(" - "))
     );
-    console.log("params", {
-      events: eventDetails,
-      start: startTimeStamp,
-      end: endTimeStamp,
-    });
 
+    setLoading(true);
     const res = await axios({
       method: "post",
       url: "http://154.215.14.233:3000/event",
       data: { events: eventDetails, start: startTimeStamp, end: endTimeStamp },
     });
+    setLoading(false);
 
     setStackData(res.data.data);
   };
@@ -48,6 +47,7 @@ const Home: NextPage = () => {
             stackData={stackData}
             setStartTimeStamp={setStartTimeStamp}
             setEndTimeStamp={setEndTimeStamp}
+            showLoading={loading}
           />
         </SplitPane>
       </main>

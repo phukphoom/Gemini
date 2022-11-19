@@ -1,13 +1,18 @@
-import { FunctionComponent, useMemo } from "react";
+import { FunctionComponent } from "react";
 
 import { BarChartBannerProps } from "./types";
 
 const BarChartBanner: FunctionComponent<BarChartBannerProps> = ({
   eventNameData,
   eventScoreData,
+  showLoading,
 }) => {
   return (
-    <div className="flex flex-row items-center justify-start px-12 pt-6 space-x-4">
+    <div
+      className={`flex flex-row items-center justify-start px-12 pt-6 space-x-4 ${
+        showLoading ? "text-grey-200" : "text-black"
+      }`}
+    >
       <p className="text-5xl font-bold">
         {Math.round((eventScoreData.at(-1) / eventScoreData.at(0)) * 100)}%
       </p>

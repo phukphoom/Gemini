@@ -6,6 +6,7 @@ import { BarChartProps } from "./types";
 const BarChart: FunctionComponent<BarChartProps> = ({
   eventNameData,
   eventScoreData,
+  showLoading,
 }) => {
   const [option, setOption] = useState<any>({});
 
@@ -58,7 +59,13 @@ const BarChart: FunctionComponent<BarChartProps> = ({
     setOption(barChartOption);
   }, [eventDiffs, eventNameData, eventScoreData]);
 
-  return <ReactEcharts style={{ height: "95%" }} option={option} />;
+  return (
+    <ReactEcharts
+      style={{ height: "95%" }}
+      option={option}
+      showLoading={showLoading}
+    />
+  );
 };
 
 export default BarChart;
