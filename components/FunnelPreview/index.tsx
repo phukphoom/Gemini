@@ -1,6 +1,11 @@
 import { Box, Button, Menu, MenuItem } from "@mui/material";
 import { FunctionComponent, useEffect, useState } from "react";
+
+import BarChart from "./BarChart";
+
 import { IconClock } from "../Shared";
+
+import mocks from "../../constants/mock.json";
 
 const FunnelPreview: FunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -81,7 +86,12 @@ const FunnelPreview: FunctionComponent = () => {
           </div>
         </div>
       </Box>
-      <div className="h-full bg-gray-50"></div>
+      <div className="h-full bg-gray-50">
+        <BarChart
+          eventNameData={["deposit", "swap", "deposit"]}
+          eventScoreData={mocks.data}
+        />
+      </div>
     </Box>
   );
 };
