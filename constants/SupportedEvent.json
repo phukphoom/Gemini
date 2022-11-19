@@ -1,0 +1,78 @@
+{
+  "title": "Protocol",
+  "options": [
+    {
+      "value": "lido",
+      "subOptionList": {
+        "title": "Event",
+        "options": [
+          {
+            "displayComponent": "submission",
+            "value": {
+              "protocol": "lido",
+              "eventName": "submission"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "value": "uniswap-v3",
+      "subOptionList": {
+        "title": "Event",
+        "options": [
+          {
+            "displayComponent": "swap",
+            "value": {
+              "protocol": "uniswap-v3",
+              "eventName": "swap"
+            }
+          },
+          {
+            "displayComponent": "deposit",
+            "value": {
+              "protocol": "uniswap-v3",
+              "eventName": "deposit"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "value": "aave-v2",
+      "subOptionList": {
+        "title": "Event",
+        "options": [
+          {
+            "displayComponent": "deposit",
+            "value": {
+              "protocol": "aave-v2",
+              "eventName": "deposit"
+            }
+          },
+          {
+            "displayComponent": "withdraw",
+            "value": {
+              "protocol": "aave-v2",
+              "eventName": "withdraw"
+            }
+          },
+          {
+            "displayComponent": "borrow",
+            "value": {
+              "protocol": "aave-v2",
+              "eventName": "borrow"
+            }
+          },
+          {
+            "displayComponent": "repay",
+            "value": {
+              "protocol": "aave-v2",
+              "eventName": "repay"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
