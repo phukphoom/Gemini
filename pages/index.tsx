@@ -6,6 +6,7 @@ import SplitPane from "@roothub/react-split-pane";
 import { FunnelEditor, FunnelPreview } from "../components";
 
 import { EventDetail } from "../components/types";
+import axios from "axios";
 
 const Home: NextPage = () => {
   const [stackLabel, setStackLabel] = useState<string[]>([]);
@@ -14,16 +15,23 @@ const Home: NextPage = () => {
   const [startTimeStamp, setStartTimeStamp] = useState<number>();
   const [endTimeStamp, setEndTimeStamp] = useState<number>();
 
-  const handleSaveClick = (eventDetails: EventDetail[]) => {
+  const handleSaveClick = async (eventDetails: EventDetail[]) => {
     setStackLabel(
       eventDetails.map((eventDetail) => Object.values(eventDetail).join(" - "))
     );
+    console.log("params", {
+      events: eventDetails,
+      start: startTimeStamp,
+      end: endTimeStamp,
+    });
 
-    setStackData(
-      eventDetails
-        .map(() => Math.floor(Math.random() * 100))
-        .sort((a, b) => b - a)
-    );
+    const res = await axios({
+      method: "post",
+      url: "http://154.215.14.233:3000/event",
+      data: { events: eventDetails, start: startTimeStamp, end: endTimeStamp },
+    });
+
+    setStackData(res.data.data);
   };
 
   return (

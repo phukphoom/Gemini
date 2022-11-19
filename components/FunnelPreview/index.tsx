@@ -5,6 +5,7 @@ import { IconClock } from "../Shared";
 import BarChart from "./BarChart";
 
 import { FunnelPreviewProps } from "./types";
+import BarChartBanner from "./BarChartBanner";
 
 const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
   stackLabel,
@@ -28,9 +29,9 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
 
   useEffect(() => {
     const date = new Date();
-    setEndTimeStamp(date.valueOf());
+    setEndTimeStamp(date.valueOf() * 1000);
     date.setDate(date.getDate() - dayFilters);
-    setStartTimeStamp(date.valueOf());
+    setStartTimeStamp(date.valueOf() * 1000);
   }, [dayFilters, setEndTimeStamp, setStartTimeStamp]);
 
   const handleClose = () => {
@@ -88,9 +89,15 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
           </div>
         </div>
       </Box>
-      <div className="h-full bg-gray-50">
-        <BarChart eventNameData={stackLabel} eventScoreData={stackData} />
-      </div>
+      {stackLabel.length > 0 && stackData.length > 0 && (
+        <div className="h-full bg-gray-50">
+          <BarChartBanner
+            eventNameData={stackLabel}
+            eventScoreData={stackData}
+          />
+          <BarChart eventNameData={stackLabel} eventScoreData={stackData} />
+        </div>
+      )}
     </Box>
   );
 };

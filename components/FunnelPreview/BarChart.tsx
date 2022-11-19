@@ -1,9 +1,9 @@
 import { FunctionComponent, useState, useEffect, useMemo } from "react";
 import ReactEcharts from "echarts-for-react";
 
-import { BarChartprops } from "./types";
+import { BarChartProps } from "./types";
 
-const BarChart: FunctionComponent<BarChartprops> = ({
+const BarChart: FunctionComponent<BarChartProps> = ({
   eventNameData,
   eventScoreData,
 }) => {
@@ -58,7 +58,7 @@ const BarChart: FunctionComponent<BarChartprops> = ({
     setOption(barChartOption);
   }, [eventDiffs, eventNameData, eventScoreData]);
 
-  return <ReactEcharts style={{ height: "90vh" }} option={option} />;
+  return <ReactEcharts style={{ height: "95%" }} option={option} />;
 };
 
 export default BarChart;
