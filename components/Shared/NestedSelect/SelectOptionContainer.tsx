@@ -1,4 +1,5 @@
 import { FunctionComponent, useState } from "react";
+import Divider from "@mui/material/Divider";
 
 import SelectOptionMenu from "./SelectOptionMenu";
 import SelectOption from "./SelectOption";
@@ -48,13 +49,16 @@ const SelectOptionContainer: FunctionComponent<SelectOptionContainerProps> = ({
         })}
       </div>
       {selectedSubOptionlist && (
-        <div>
-          <SelectOptionContainer
-            title={selectedSubOptionlist.title}
-            options={selectedSubOptionlist.options}
-            onSelect={onSelect}
-          />
-        </div>
+        <>
+          <Divider orientation="vertical" className="bg-grey-100" flexItem />
+          <div>
+            <SelectOptionContainer
+              title={selectedSubOptionlist.title}
+              options={selectedSubOptionlist.options}
+              onSelect={onSelect}
+            />
+          </div>
+        </>
       )}
     </div>
   );
