@@ -5,13 +5,16 @@ import SplitPane from "@roothub/react-split-pane";
 
 import { FunnelEditor, FunnelPreview } from "../components";
 
+import { EventDetail } from "../components/types";
+
 const Home: NextPage = () => {
-  const [startTimeStamp, setStartTimeStamp] = useState<any>();
-  const [endTimeStamp, setEndTimeStamp] = useState<any>();
+  const [events, setEvents] = useState<(EventDetail | undefined)[]>([]);
+  const [startTimeStamp, setStartTimeStamp] = useState<number | undefined>();
+  const [endTimeStamp, setEndTimeStamp] = useState<number | undefined>();
 
   useEffect(() => {
-    console.log({ startTimeStamp, endTimeStamp });
-  }, [endTimeStamp, startTimeStamp]);
+    console.log({ events, startTimeStamp, endTimeStamp });
+  }, [events, endTimeStamp, startTimeStamp]);
 
   return (
     <>
@@ -21,7 +24,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="w-screen h-screen">
         <SplitPane split="vertical" size={550}>
-          <FunnelEditor />
+          <FunnelEditor setEvents={setEvents} />
           <FunnelPreview
             setStartTimeStamp={setStartTimeStamp}
             setEndTimeStamp={setEndTimeStamp}

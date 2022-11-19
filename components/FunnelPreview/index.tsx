@@ -1,8 +1,8 @@
-import { Box, Button, Menu, MenuItem } from "@mui/material";
 import { FunctionComponent, useEffect, useState } from "react";
+import { Box, Button, Menu, MenuItem } from "@mui/material";
 
 import BarChart from "./BarChart";
-import { FunnelPreviewProps } from "./type";
+import { FunnelPreviewProps } from "./types";
 
 import { IconClock } from "../Shared";
 
@@ -47,13 +47,12 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
       >
         <div className="flex flex-row space-x-2">
           <div>
-            {" "}
             <Button
-              className="w-24 px-2 py-1 space-x-1 border"
+              className="w-24 px-2 py-1 space-x-1 border text-gemini-500"
               variant="outlined"
               onClick={handleClick}
             >
-              <IconClock className="w-4 h-4" />
+              <IconClock className="w-3.5 h-3.5" />
               <p className="w-6">{dayFilters}</p>
               <p>Days</p>
             </Button>
@@ -65,6 +64,7 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
               MenuListProps={{
                 "aria-labelledby": "basic-button",
               }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             >
               <MenuItem
                 onClick={() => handleSelectDays(1)}

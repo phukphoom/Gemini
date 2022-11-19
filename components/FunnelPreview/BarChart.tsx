@@ -1,7 +1,7 @@
-import { FunctionComponent, useState, useEffect, useCallback } from "react";
+import { FunctionComponent, useState, useEffect, useMemo } from "react";
 import ReactEcharts from "echarts-for-react";
 
-import { BarChartprops } from "./type";
+import { BarChartprops } from "./types";
 
 const BarChart: FunctionComponent<BarChartprops> = ({
   eventNameData,
@@ -9,13 +9,12 @@ const BarChart: FunctionComponent<BarChartprops> = ({
 }) => {
   const [option, setOption] = useState<any>({});
 
-  const eventDiffs = useCallback(
-    eventScoreData.map((val: any, idx: any, arr: any[]) => {
+  const eventDiffs = useMemo(() => {
+    return eventScoreData.map((val: any, idx: any, arr: any[]) => {
       if (idx === 0) return;
       else return arr[idx - 1] - val;
-    }),
-    [eventScoreData]
-  );
+    });
+  }, [eventScoreData]);
 
   useEffect(() => {
     const barChartOption = {

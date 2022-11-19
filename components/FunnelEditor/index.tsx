@@ -1,27 +1,24 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import Image from "next/image";
 
 import { Button, IconPlus } from "../Shared";
 import EventCustomizer from "./EventCustomizer";
 import InsertEventButton from "./InsertEventButton";
 
+import { FunnelEditorProps } from "./types";
 import { EventDetail } from "../types";
 
-const FunnelEditor: FunctionComponent = () => {
-  const [eventDetails, setEventDetails] = useState<EventDetail[]>([]);
+const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({ setEvents }) => {
+  const [eventDetails, setEventDetails] = useState<(EventDetail | undefined)[]>(
+    []
+  );
 
   const handleAddEventDetail = (position: number) => {
     if (position === -1) {
-      setEventDetails([
-        ...eventDetails,
-        { protocol: undefined, eventName: undefined },
-      ]);
+      setEventDetails([...eventDetails, undefined]);
     } else {
       const newEventDetails = [...eventDetails];
-      newEventDetails.splice(position, 0, {
-        protocol: undefined,
-        eventName: undefined,
-      });
+      newEventDetails.splice(position, 0, undefined);
       setEventDetails(newEventDetails);
     }
   };
@@ -42,6 +39,10 @@ const FunnelEditor: FunctionComponent = () => {
       setEventDetails(eventDetails.filter((_, index) => index !== position));
     }
   };
+
+  useEffect(() => {
+    setEvents(eventDetails);
+  }, [eventDetails]);
 
   return (
     <div className="w-full h-screen overflow-auto">
@@ -95,12 +96,19 @@ const FunnelEditor: FunctionComponent = () => {
               handleAddEventDetail(-1);
             }}
           >
-            <div className="flex flex-row justify-center items-center space-x-1">
+            <div className="flex flex-row justify-center items-center space-x-1 text-gemini-500">
               <IconPlus className="w-3.5 h-3.5" />
               <p>Add event</p>
             </div>
           </Button>
-          <Button className="w-1/2" variant="contained" disabled>
+          <Button
+            className="w-1/2"
+            variant="contained"
+            disabled={
+              eventDetails.length === 0 ||
+              !eventDetails.every((eventDetail) => eventDetail !== undefined)
+            }
+          >
             Save
           </Button>
         </div>
