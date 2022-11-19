@@ -1,14 +1,14 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { Box, Button, Menu, MenuItem } from "@mui/material";
 
+import { IconClock } from "../Shared";
 import BarChart from "./BarChart";
+
 import { FunnelPreviewProps } from "./types";
 
-import { IconClock } from "../Shared";
-
-import mocks from "../../constants/mock.json";
-
 const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
+  stackLabel,
+  stackData,
   setEndTimeStamp,
   setStartTimeStamp,
 }) => {
@@ -89,10 +89,7 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
         </div>
       </Box>
       <div className="h-full bg-gray-50">
-        <BarChart
-          eventNameData={["deposit", "swap", "deposit"]}
-          eventScoreData={mocks.data}
-        />
+        <BarChart eventNameData={stackLabel} eventScoreData={stackData} />
       </div>
     </Box>
   );

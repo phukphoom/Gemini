@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { EventDetail } from "../types";
 
 export interface FunnelEditorProps {
-  setEvents: Dispatch<SetStateAction<(EventDetail | undefined)[]>>;
+  handleSaveClick: (eventDetails: EventDetail[]) => void;
 }
 
 export interface EventCustomizerProps {

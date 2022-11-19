@@ -1,4 +1,4 @@
-import { FunctionComponent, useState, useEffect } from "react";
+import { FunctionComponent, useState } from "react";
 import Image from "next/image";
 
 import { Button, IconPlus } from "../Shared";
@@ -8,7 +8,9 @@ import InsertEventButton from "./InsertEventButton";
 import { FunnelEditorProps } from "./types";
 import { EventDetail } from "../types";
 
-const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({ setEvents }) => {
+const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({
+  handleSaveClick,
+}) => {
   const [eventDetails, setEventDetails] = useState<(EventDetail | undefined)[]>(
     []
   );
@@ -39,10 +41,6 @@ const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({ setEvents }) => {
       setEventDetails(eventDetails.filter((_, index) => index !== position));
     }
   };
-
-  useEffect(() => {
-    setEvents(eventDetails);
-  }, [eventDetails]);
 
   return (
     <div className="w-full h-screen overflow-auto">
@@ -108,6 +106,9 @@ const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({ setEvents }) => {
               eventDetails.length === 0 ||
               !eventDetails.every((eventDetail) => eventDetail !== undefined)
             }
+            onClick={() => {
+              handleSaveClick(eventDetails as EventDetail[]);
+            }}
           >
             Save
           </Button>

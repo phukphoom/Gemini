@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState } from "react";
 import { NextPage } from "next";
 import Head from "next/head";
 import SplitPane from "@roothub/react-split-pane";
@@ -8,13 +8,23 @@ import { FunnelEditor, FunnelPreview } from "../components";
 import { EventDetail } from "../components/types";
 
 const Home: NextPage = () => {
-  const [events, setEvents] = useState<(EventDetail | undefined)[]>([]);
-  const [startTimeStamp, setStartTimeStamp] = useState<number | undefined>();
-  const [endTimeStamp, setEndTimeStamp] = useState<number | undefined>();
+  const [stackLabel, setStackLabel] = useState<string[]>([]);
+  const [stackData, setStackData] = useState<number[]>([]);
 
-  useEffect(() => {
-    console.log({ events, startTimeStamp, endTimeStamp });
-  }, [events, endTimeStamp, startTimeStamp]);
+  const [startTimeStamp, setStartTimeStamp] = useState<number>();
+  const [endTimeStamp, setEndTimeStamp] = useState<number>();
+
+  const handleSaveClick = (eventDetails: EventDetail[]) => {
+    setStackLabel(
+      eventDetails.map((eventDetail) => Object.values(eventDetail).join(" - "))
+    );
+
+    setStackData(
+      eventDetails
+        .map(() => Math.floor(Math.random() * 100))
+        .sort((a, b) => b - a)
+    );
+  };
 
   return (
     <>
@@ -24,8 +34,10 @@ const Home: NextPage = () => {
       </Head>
       <main className="w-screen h-screen">
         <SplitPane split="vertical" size={550}>
-          <FunnelEditor setEvents={setEvents} />
+          <FunnelEditor handleSaveClick={handleSaveClick} />
           <FunnelPreview
+            stackLabel={stackLabel}
+            stackData={stackData}
             setStartTimeStamp={setStartTimeStamp}
             setEndTimeStamp={setEndTimeStamp}
           />
