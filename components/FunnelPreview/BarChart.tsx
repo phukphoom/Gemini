@@ -8,8 +8,6 @@ const BarChart: FunctionComponent<BarChartProps> = ({
   eventScoreData,
   showLoading,
 }) => {
-  const [option, setOption] = useState<any>({});
-
   const toPercent = (point: any) => {
     return Math.round((point / Math.max(...eventScoreData)) * 100);
   };
@@ -21,8 +19,8 @@ const BarChart: FunctionComponent<BarChartProps> = ({
     });
   }, [eventScoreData]);
 
-  useEffect(() => {
-    const barChartOption = {
+  const option = useMemo(() => {
+    return {
       xAxis: {
         type: "category",
         data: eventNameData,
@@ -45,9 +43,7 @@ const BarChart: FunctionComponent<BarChartProps> = ({
       ],
       series: [
         {
-          data: eventScoreData.map((data) =>
-            Math.round((data / Math.max(...eventScoreData)) * 100)
-          ),
+          data: eventScoreData.map(toPercent),
           type: "bar",
           stack: "x",
           color: "#0A62B0",
@@ -73,9 +69,7 @@ const BarChart: FunctionComponent<BarChartProps> = ({
         },
       ],
     };
-
-    setOption(barChartOption);
-  }, [eventDiffs, eventNameData, eventScoreData, toPercent]);
+  }, [eventNameData, eventScoreData]);
 
   return (
     <ReactEcharts

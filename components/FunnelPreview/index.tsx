@@ -90,20 +90,18 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
           </div>
         </div>
       </Box>
-      {stackLabel.length > 0 && stackData.length > 0 && (
-        <div className="h-full bg-gray-50">
-          <BarChartBanner
-            eventNameData={stackLabel}
-            eventScoreData={stackData}
-            showLoading={showLoading}
-          />
-          <BarChart
-            eventNameData={stackLabel}
-            eventScoreData={stackData}
-            showLoading={showLoading}
-          />
-        </div>
-      )}
+      <div className="h-full bg-gray-50">
+        <BarChartBanner
+          eventNameData={stackLabel}
+          eventScoreData={stackData}
+          showLoading={showLoading}
+        />
+        <BarChart
+          eventNameData={stackLabel}
+          eventScoreData={stackData}
+          showLoading={showLoading}
+        />
+      </div>
     </Box>
   );
 };

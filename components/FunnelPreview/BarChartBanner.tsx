@@ -1,7 +1,6 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useMemo } from "react";
 
 import { BarChartBannerProps } from "./types";
-import { useMemo } from "react";
 
 const BarChartBanner: FunctionComponent<BarChartBannerProps> = ({
   eventNameData,
@@ -10,7 +9,9 @@ const BarChartBanner: FunctionComponent<BarChartBannerProps> = ({
 }) => {
   const funnelPercentage = useMemo(() => {
     if (eventScoreData && eventScoreData.length > 0) {
-      return Math.round((eventScoreData[-1] / eventScoreData[0]) * 100);
+      return Math.round(
+        (eventScoreData[eventScoreData.length - 1] / eventScoreData[0]) * 100
+      );
     }
     return undefined;
   }, [eventScoreData]);
@@ -26,8 +27,12 @@ const BarChartBanner: FunctionComponent<BarChartBannerProps> = ({
       </p>
       <div className="flex flex-col items-start">
         <p>
-          of the users go from ({eventNameData.at(0)}) to (
-          {eventNameData.at(-1)})
+          of the users go from [ {eventScoreData[0] ? eventScoreData[0] : "-"} ]
+          to [{" "}
+          {eventScoreData[eventScoreData.length - 1]
+            ? eventScoreData[eventScoreData.length - 1]
+            : "-"}{" "}
+          ]
         </p>
         <p>in the past timeframe</p>
       </div>
