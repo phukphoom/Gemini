@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     setLoading(true);
     const res = await axios({
       method: "post",
-      url: "http://154.215.14.233:3000/event",
+      url: "http://indexer.celab.network/event",
       data: { events: eventDetails, start: startTimeStamp, end: endTimeStamp },
     });
     setLoading(false);
