@@ -23,10 +23,11 @@ const SelectOptionContainer: FunctionComponent<SelectOptionContainerProps> = ({
     >
       <div className="w-60">
         <p className="px-4 text-sm font-bold text-grey-400">{title}</p>
-        {options.map((option) => {
+        {options.map((option, idx) => {
           if (option.subOptionList) {
             return (
               <SelectOptionMenu
+                key={idx}
                 option={option}
                 isExpanded={selectedSubOptionlist === option.subOptionList}
                 onClick={(firstOptionValue) => {
@@ -40,6 +41,7 @@ const SelectOptionContainer: FunctionComponent<SelectOptionContainerProps> = ({
           }
           return (
             <SelectOption
+              key={idx}
               option={option}
               onClick={(optionValue) => {
                 onSelect(optionValue);
