@@ -27,10 +27,10 @@ const BarChartBanner: FunctionComponent<BarChartBannerProps> = ({
       </p>
       <div className="flex flex-col items-start">
         <p>
-          of the users go from [ {eventScoreData[0] ? eventScoreData[0] : "-"} ]
+          of the users go from [ {eventNameData[0] ? eventNameData[0] : "-"} ]
           to [{" "}
-          {eventScoreData[eventScoreData.length - 1]
-            ? eventScoreData[eventScoreData.length - 1]
+          {eventNameData[eventScoreData.length - 1]
+            ? eventNameData[eventScoreData.length - 1]
             : "-"}{" "}
           ]
         </p>

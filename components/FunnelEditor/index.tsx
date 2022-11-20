@@ -51,7 +51,7 @@ const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({
         </div>
         <div className="flex flex-col space-y-2">
           <p className="text-gemini-600 text-2xl">
-            Lets&apos create a scenario from eventDetails!
+            Lets&apos; create a scenario from eventDetails!
           </p>
           <p>
             eventDetails are actions or methods defined in smart contracts of a
