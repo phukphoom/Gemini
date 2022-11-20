@@ -10,6 +10,10 @@ const BarChart: FunctionComponent<BarChartProps> = ({
 }) => {
   const [option, setOption] = useState<any>({});
 
+  const toPercent = (point: any) => {
+    return Math.round((point / Math.max(...eventScoreData)) * 100);
+  };
+
   const eventDiffs = useMemo(() => {
     return eventScoreData.map((val: any, idx: any, arr: any[]) => {
       if (idx === 0) return;
@@ -55,20 +59,23 @@ const BarChart: FunctionComponent<BarChartProps> = ({
           },
         },
         {
-          data: eventDiffs,
+          data: eventDiffs.map(toPercent),
           type: "bar",
           stack: "x",
           color: "rgba(69, 129, 183, 0.3)",
           label: {
             show: true,
             color: "#0A62B0",
+            formatter: (data: any) => {
+              return eventDiffs[data.dataIndex];
+            },
           },
         },
       ],
     };
 
     setOption(barChartOption);
-  }, [eventDiffs, eventNameData, eventScoreData]);
+  }, [eventDiffs, eventNameData, eventScoreData, toPercent]);
 
   return (
     <ReactEcharts

@@ -56,7 +56,7 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
             >
               <IconClock className="w-3.5 h-3.5" />
               <p className="w-6">{dayFilters}</p>
-              <p>Days</p>
+              <p>Day(s)</p>
             </Button>
             <Menu
               id="basic-menu"
@@ -72,7 +72,7 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
                 onClick={() => handleSelectDays(1)}
                 className="text-gemini-500"
               >
-                1 Days
+                1 Day
               </MenuItem>
               <MenuItem
                 onClick={() => handleSelectDays(3)}
