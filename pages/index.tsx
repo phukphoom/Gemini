@@ -6,9 +6,14 @@ import SplitPane from "@roothub/react-split-pane";
 import { FunnelEditor, FunnelPreview } from "../components";
 
 import { EventDetail } from "../components/types";
+
+import { useHistory } from "../state/history/hook";
 import axios from "axios";
 
 const Home: NextPage = () => {
+  const {
+    reducers: { handleAddHistory },
+  } = useHistory();
   const [loading, setLoading] = useState<boolean>(false);
 
   const [stackLabel, setStackLabel] = useState<string[]>([]);
@@ -29,6 +34,8 @@ const Home: NextPage = () => {
       data: { events: eventDetails, start: startTimeStamp, end: endTimeStamp },
     });
     setLoading(false);
+
+    handleAddHistory({ detail: eventDetails, stackData: res.data.data });
 
     setStackData(res.data.data);
   };
