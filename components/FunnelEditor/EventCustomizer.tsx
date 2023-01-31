@@ -1,10 +1,11 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 
 import { NestedSelect } from "../Shared";
 
 import { EventCustomizerProps } from "./types";
 
 import SupportEvent from "../../constants/SupportedEvent.json";
+import { useFunnels } from "../../state/funnels/hook";
 
 const EventCustomizer: FunctionComponent<EventCustomizerProps> = ({
   index,
@@ -12,6 +13,8 @@ const EventCustomizer: FunctionComponent<EventCustomizerProps> = ({
   handleRemoveEventDetail,
 }) => {
   const [onHover, setOnHover] = useState<boolean>(false);
+
+  const { selectedFunnel } = useFunnels();
 
   return (
     <div
@@ -33,7 +36,13 @@ const EventCustomizer: FunctionComponent<EventCustomizerProps> = ({
         </div>
         <div className="flex flex-col w-full space-y-6">
           <NestedSelect
-            label={`Event ${index + 1}`}
+            label={
+              selectedFunnel
+                ? selectedFunnel.eventDetail[index]
+                  ? `${selectedFunnel?.eventDetail[index].protocol} - ${selectedFunnel?.eventDetail[index].eventName}`
+                  : `Event ${index + 1}`
+                : `Event ${index + 1}`
+            }
             optionList={SupportEvent}
             onChange={(value) => {
               handleChangeEventDetail(value as Object);
@@ -49,7 +58,7 @@ const EventCustomizer: FunctionComponent<EventCustomizerProps> = ({
         }`}
         onClick={handleRemoveEventDetail}
       >
-        <p className="write-vertical-rl font-bold">Delete</p>
+        <p className="font-bold write-vertical-rl">Delete</p>
       </button>
     </div>
   );

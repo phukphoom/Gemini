@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import Image from "next/image";
 
 import { Button, IconPlus } from "../Shared";
@@ -7,10 +7,13 @@ import InsertEventButton from "./InsertEventButton";
 
 import { FunnelEditorProps } from "./types";
 import { EventDetail } from "../types";
+import { useFunnels } from "../../state/funnels/hook";
 
 const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({
   handleSaveClick,
 }) => {
+  const { selectedFunnel } = useFunnels();
+
   const [eventDetails, setEventDetails] = useState<(EventDetail | undefined)[]>(
     []
   );
@@ -42,21 +45,31 @@ const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({
     }
   };
 
+  console.log(selectedFunnel);
+
+  useEffect(() => {
+    if (selectedFunnel) {
+      setEventDetails(selectedFunnel.eventDetail);
+    } else {
+      setEventDetails([]);
+    }
+  }, [selectedFunnel]);
+
   return (
     <div className="w-full h-screen overflow-auto">
-      <div className="flex flex-col space-y-6 px-16 py-8">
-        <div className="flex flex-row justify-start items-center space-x-2">
+      <div className="flex flex-col px-16 py-8 space-y-6">
+        <div className="flex flex-row items-center justify-start space-x-2">
           <Image src="/favicon.ico" alt="Gemini" width={40} height={40} />
           <p className="font-black font-garamond">Gemini</p>
         </div>
         <div className="flex flex-col space-y-2">
-          <p className="text-gemini-600 text-2xl">
+          <p className="text-2xl text-gemini-600">
             Lets' create a scenario from eventDetails!
           </p>
           <p>
             eventDetails are actions or methods defined in smart contracts of a
             particular protocol.{"  "}
-            <a className="text-gemini-500 font-bold" href="">
+            <a className="font-bold text-gemini-500" href="">
               Learn more
             </a>
           </p>
@@ -86,7 +99,7 @@ const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({
             handleAddEventDetail(-1);
           }}
         />
-        <div className="flex flex-row justify-center space-x-2 px-16 mt-4 mb-8">
+        <div className="flex flex-row justify-center px-16 mt-4 mb-8 space-x-2">
           <Button
             className="w-1/2"
             variant="outlined"
@@ -94,7 +107,7 @@ const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({
               handleAddEventDetail(-1);
             }}
           >
-            <div className="flex flex-row justify-center items-center space-x-1 text-gemini-500">
+            <div className="flex flex-row items-center justify-center space-x-1 text-gemini-500">
               <IconPlus className="w-3.5 h-3.5" />
               <p>Add event</p>
             </div>
@@ -110,7 +123,7 @@ const FunnelEditor: FunctionComponent<FunnelEditorProps> = ({
               handleSaveClick(eventDetails as EventDetail[]);
             }}
           >
-            Save
+            Create
           </Button>
         </div>
       </div>

@@ -1,21 +1,30 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { Box, Button, Menu, MenuItem } from "@mui/material";
 
-import { IconClock } from "../Shared";
+import { IconChevronLeft, IconClock } from "../Shared";
 import BarChart from "./BarChart";
 
 import { FunnelPreviewProps } from "./types";
 import BarChartBanner from "./BarChartBanner";
+import PreviewHistory from "../PreviewHistory";
+import { useFunnels } from "../../state/funnels/hook";
 
 const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
   stackLabel,
   stackData,
+  isOpenFunnel,
   setEndTimeStamp,
   setStartTimeStamp,
+  setIsOpenFunnel,
   showLoading,
 }) => {
+  const {
+    reducers: { handleRemoveSelected },
+  } = useFunnels();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [dayFilters, setDayFilters] = useState<number>(1);
+  const [stackDataPreview, setStackDataPreview] = useState<any>(stackData);
+  const [stackLabelPreview, setStackLabelPreview] = useState<any>(stackLabel);
 
   const open = Boolean(anchorEl);
 
@@ -38,6 +47,12 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    setStackDataPreview(stackData);
+    setStackLabelPreview(stackLabel);
+  }, [stackData, stackLabel]);
+
   return (
     <Box
       sx={{ borderLeft: 1 }}
@@ -49,15 +64,29 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
       >
         <div className="flex flex-row space-x-2">
           <div>
-            <Button
-              className="w-24 px-2 py-1 space-x-1 border text-gemini-500"
-              variant="outlined"
-              onClick={handleClick}
-            >
-              <IconClock className="w-3.5 h-3.5" />
-              <p className="w-6">{dayFilters}</p>
-              <p>Days</p>
-            </Button>
+            {isOpenFunnel ? (
+              <Button
+                className="px-2 py-2 space-x-1 border text-gemini-500"
+                variant="outlined"
+                onClick={() => {
+                  setIsOpenFunnel(false);
+                  handleRemoveSelected();
+                }}
+              >
+                <IconChevronLeft className="w-3.5 h-3.5" />
+              </Button>
+            ) : (
+              <Button
+                className="w-24 px-2 py-1 space-x-1 border text-gemini-500"
+                variant="outlined"
+                onClick={handleClick}
+              >
+                <IconClock className="w-3.5 h-3.5" />
+                <p className="w-6">{dayFilters}</p>
+                <p>Days</p>
+              </Button>
+            )}
+
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}
@@ -90,19 +119,27 @@ const FunnelPreview: FunctionComponent<FunnelPreviewProps> = ({
           </div>
         </div>
       </Box>
-      {stackLabel.length > 0 && stackData.length > 0 && (
+      {isOpenFunnel ? (
         <div className="h-full bg-gray-50">
           <BarChartBanner
-            eventNameData={stackLabel}
-            eventScoreData={stackData}
+            eventNameData={stackLabelPreview}
+            eventScoreData={stackDataPreview}
             showLoading={showLoading}
           />
           <BarChart
-            eventNameData={stackLabel}
-            eventScoreData={stackData}
+            eventNameData={stackLabelPreview}
+            eventScoreData={stackDataPreview}
             showLoading={showLoading}
           />
         </div>
+      ) : (
+        <>
+          <PreviewHistory
+            setStackDataPreview={setStackDataPreview}
+            setStackLabelPreview={setStackLabelPreview}
+            setIsOpenFunnel={setIsOpenFunnel}
+          />
+        </>
       )}
     </Box>
   );

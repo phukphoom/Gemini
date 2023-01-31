@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 
 import { IconProps } from "./types";
 
-const IconAdd: FunctionComponent<IconProps> = ({ className }) => {
+const IconChevronRight: FunctionComponent<IconProps> = ({ className }) => {
   return (
     <svg
       width="8"
@@ -21,4 +21,4 @@ const IconAdd: FunctionComponent<IconProps> = ({ className }) => {
   );
 };
 
-export default IconAdd;
+export default IconChevronRight;

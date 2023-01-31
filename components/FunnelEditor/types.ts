@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { EventDetail } from "../types";
 
 export interface FunnelEditorProps {
+  isOpenFunnel: boolean;
   handleSaveClick: (eventDetails: EventDetail[]) => void;
 }
 

@@ -72,7 +72,10 @@ const BarChart: FunctionComponent<BarChartProps> = ({
 
   return (
     <ReactEcharts
-      style={{ height: "95%" }}
+      style={{
+        height: "95%",
+        width: "90%",
+      }}
       option={option}
       showLoading={showLoading}
     />
