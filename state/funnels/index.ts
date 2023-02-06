@@ -16,12 +16,28 @@ export const funnelSlice = createSlice({
         payload: { eventDetail, event, data },
       }: { payload: { eventDetail: any; event: any; data: any } }
     ) => {
+      const uuid = uuidv4();
       state.funnels.push({
-        id: uuidv4(),
+        id: uuid,
         eventDetail: eventDetail,
         event: event,
         data: data,
       });
+      state.selectedFunnel = {
+        id: uuid,
+        eventDetail: eventDetail,
+        event: event,
+        data: data,
+      };
+    },
+    removeFunnel: (state, { payload: { id } }: { payload: { id: string } }) => {
+      let indexOfData;
+      for (let i = 0; i < state.funnels.length; i += 1) {
+        if (state.funnels[i].id === id) {
+          indexOfData = i;
+        }
+      }
+      state.funnels.splice(indexOfData, 1);
     },
     setSelectedFunnnel: (
       state,
@@ -42,7 +58,7 @@ export const funnelSlice = createSlice({
   },
 });
 
-export const { addFunnel, setSelectedFunnnel, removeSelected } =
+export const { addFunnel, removeFunnel, setSelectedFunnnel, removeSelected } =
   funnelSlice.actions;
 
 export default funnelSlice.reducer;

@@ -5,6 +5,7 @@ import { AppState } from "../index";
 
 import {
   addFunnel as addFunnelAction,
+  removeFunnel as removeFunnelAction,
   setSelectedFunnnel as selectedFunnelAction,
   removeSelected as removeSelectedAction,
 } from ".";
@@ -14,6 +15,7 @@ export const useFunnels = (): {
   selectedFunnel: any;
   reducers: {
     handleAddFunnel: (eventDetail: any, event: any, data: any) => void;
+    handleRemoveFunnel: (id: string) => void;
     handleSelectedFunnel: (
       id: any,
       eventDetail: any,
@@ -38,6 +40,13 @@ export const useFunnels = (): {
     [dispatch]
   );
 
+  const handleRemoveFunnel = useCallback(
+    (id: string) => {
+      dispatch(removeFunnelAction({ id }));
+    },
+    [dispatch]
+  );
+
   const handleSelectedFunnel = useCallback(
     (id: any, eventDetail: any, event: any, data: any) => {
       dispatch(selectedFunnelAction({ id, eventDetail, event, data }));
@@ -52,6 +61,11 @@ export const useFunnels = (): {
   return {
     funnels,
     selectedFunnel,
-    reducers: { handleAddFunnel, handleSelectedFunnel, handleRemoveSelected },
+    reducers: {
+      handleAddFunnel,
+      handleRemoveFunnel,
+      handleSelectedFunnel,
+      handleRemoveSelected,
+    },
   };
 };
