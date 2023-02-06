@@ -4,11 +4,11 @@ import { StyledEngineProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Provider } from "react-redux";
 
-import { store } from "../state";
+import { store, persistor } from "../state";
 
-import { saveState } from "../state/browser-storage";
 import "../styles/index.css";
 import "../styles/MatUIOverride.css";
+import { PersistGate } from "redux-persist/integration/react";
 
 const MatUITheme = createTheme({
   typography: {
@@ -16,21 +16,17 @@ const MatUITheme = createTheme({
   },
 });
 
-store.subscribe(
-  debounce(() => {
-    saveState(store.getState());
-  }, 800)
-);
-
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={MatUITheme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={MatUITheme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </PersistGate>
     </Provider>
   );
 };

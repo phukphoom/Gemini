@@ -1,25 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
+import { useDispatch, useSelector as useAppSelector } from "react-redux";
+import { persistStore, persistReducer } from "redux-persist";
+import { rootPersistConfig, rootReducer } from "./rootReducer";
 
-import { loadState } from "./browser-storage";
-
-import { funnelSlice } from "./funnels";
-
-export const store = configureStore({
-  reducer: combineReducers({
-    [funnelSlice.name]: funnelSlice.reducer,
-  }),
-  devTools: true,
-  preloadedState: loadState(),
+const store = configureStore({
+  reducer: persistReducer(rootPersistConfig, rootReducer),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+    }),
 });
 
-// export type AppState = ReturnType<typeof store.getState>;
+const persistor = persistStore(store);
 
-// export type AppDispatch = typeof store.dispatch;
+const { dispatch } = store;
 
-// export const useAppDispatch = () => useDispatch<AppDispatch>();
-
-// export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
+const useSelector = useAppSelector;
 
 export type AppDispatch = typeof store.dispatch;
 export type AppState = ReturnType<typeof store.getState>;
+const useAppDispatch = (): AppDispatch => useDispatch();
+
+export { store, persistor, dispatch, useSelector, useAppDispatch };
