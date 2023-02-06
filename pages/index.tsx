@@ -52,7 +52,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="w-screen h-screen">
-        <SplitPane split="vertical" size={550}>
+        <SplitPane split="vertical" size={400}>
           <FunnelEditor
             isOpenFunnel={isOpenFunnel}
             handleSaveClick={handleSaveClick}
